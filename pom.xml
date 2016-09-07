@@ -8,6 +8,25 @@
   <name>divisasperiodic Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
+  
+  <dependency>
+    <groupId>org.quartz-scheduler</groupId>
+    <artifactId>quartz</artifactId>
+    <version>2.2.2</version>
+</dependency>
+
+<!-- https://mvnrepository.com/artifact/com.google.code.gson/gson -->
+<dependency>
+    <groupId>com.google.code.gson</groupId>
+    <artifactId>gson</artifactId>
+    <version>2.7</version>
+</dependency>
+
+  <dependency>
+    <groupId>com.google.firebase</groupId>
+    <artifactId>firebase-server-sdk</artifactId>
+    <version>3.0.1</version>
+</dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
