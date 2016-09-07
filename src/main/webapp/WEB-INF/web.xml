@@ -7,4 +7,14 @@
   <listener>
   	<listener-class>QuartzListener</listener-class>
   </listener>
+  <servlet>
+  	<servlet-name>Tigger</servlet-name>
+  	<display-name>Tigger</display-name>
+  	<description></description>
+  	<servlet-class>servlet.Tigger</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>Tigger</servlet-name>
+  	<url-pattern>/Tigger</url-pattern>
+  </servlet-mapping>
 </web-app>

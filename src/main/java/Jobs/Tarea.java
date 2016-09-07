@@ -1,4 +1,4 @@
-package jobs;
+package Jobs;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,27 +15,21 @@ import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
 
-import org.json.JSONObject;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
-import model.Divisa;
+import models.Divisa;
 
 
-public class SimpleJob implements Job {
+
+public class Tarea implements Job{
 	
 	private final String API="cf9ec84e98574bb7bd65d94434162332";
 	FirebaseOptions options = null;
@@ -62,7 +56,7 @@ public class SimpleJob implements Job {
         
          
          
-        System.out.printf("vamos a ver "+resultado.getRates().USD+"\n");
+        System.out.printf("vamos a ver "+resultado.getRates().EUR+"\n");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 		DatabaseReference ref = database.getReference("server");
 		
@@ -194,6 +188,5 @@ public class SimpleJob implements Job {
 
     }
     
+
 }
-    
-    

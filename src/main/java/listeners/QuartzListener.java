@@ -1,12 +1,9 @@
+package listeners;
 
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-
-import org.quartz.ee.servlet.QuartzInitializerListener;
-
 
 import org.quartz.CronScheduleBuilder;
 import org.quartz.JobBuilder;
@@ -19,7 +16,15 @@ import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jobs.SimpleJob;
+import Jobs.Tarea;
+
+
+
+
+
+
+
+
 
 /**
  * Application Lifecycle Listener implementation class QuartzListener
@@ -27,7 +32,7 @@ import jobs.SimpleJob;
  */
 
 @WebListener
-public class QuartzListener extends QuartzInitializerListener implements ServletContextListener {
+public class QuartzListener extends QuartzInitializerListener {
 	
 	 private static final Logger LOG = LoggerFactory.getLogger(QuartzListener.class);
        
@@ -38,7 +43,7 @@ public class QuartzListener extends QuartzInitializerListener implements Servlet
 	        StdSchedulerFactory factory = (StdSchedulerFactory) ctx.getAttribute(QUARTZ_FACTORY_KEY);
 	        try {
 	            Scheduler scheduler = factory.getScheduler();
-	            JobDetail job = JobBuilder.newJob(SimpleJob.class).build();
+	            JobDetail job = JobBuilder.newJob(Tarea.class).build();
 	            Trigger trigger = TriggerBuilder.newTrigger().withIdentity("simple").withSchedule(
 	                    CronScheduleBuilder.cronSchedule("0 0/1 * 1/1 * ? *")
 	            ).startNow().build();

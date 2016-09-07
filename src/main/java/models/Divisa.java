@@ -1,11 +1,6 @@
-package model;
+package models;
 
-/**
- * @author T13932
- *
- */
 public class Divisa {
-	
 	private String disclaimer;
     private String license;
     private long timestamp;
@@ -45,13 +40,4 @@ public class Divisa {
 	public Rates getRates() {
 		return rates;
 	}
-
-
-	
-    
-    
-    
-    
-    
-
 }

@@ -1,7 +1,6 @@
-package model;
+package models;
 
 public class Rates {
-	
 	public double AED;
     public double AFN;
     public double ALL;
