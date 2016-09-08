@@ -3,6 +3,7 @@ package listeners;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
 import org.quartz.CronScheduleBuilder;
@@ -32,7 +33,7 @@ import Jobs.Tarea;
  */
 
 @WebListener
-public class QuartzListener extends QuartzInitializerListener {
+public class QuartzListener extends QuartzInitializerListener implements ServletContextListener{
 	
 	 private static final Logger LOG = LoggerFactory.getLogger(QuartzListener.class);
        
