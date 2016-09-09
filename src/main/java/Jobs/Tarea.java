@@ -33,24 +33,40 @@ public class Tarea implements Job{
 	
 	private final String API="cf9ec84e98574bb7bd65d94434162332";
 	FirebaseOptions options = null;
+	 FileInputStream archivoConfiguracion;
 	
-    public void execute(JobExecutionContext ctx) throws JobExecutionException {
-    	
-    		try {
-				options = new FirebaseOptions.Builder()
-						  .setServiceAccount(new FileInputStream(getFileFirebase()))
-						  .setDatabaseUrl("https://hipoteca-multidivisa.firebaseio.com/")
-						  .build();
+    @SuppressWarnings("unused")
+	public void execute(JobExecutionContext ctx) throws JobExecutionException {
+    	System.out.printf("INICIAMOS EJECUCION\n");
+    	 
+			try {
+				archivoConfiguracion = new FileInputStream(getFileFirebase());
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
+			
+			System.out.printf("antes de options\n");
+					options = new FirebaseOptions.Builder()
+							  .setServiceAccount(archivoConfiguracion)
+							  .setDatabaseUrl("https://hipoteca-multidivisa.firebaseio.com/")
+							  .build();
+					
+					
 		
     			FirebaseApp.initializeApp(options);
+    			System.out.printf("despues de options\n");
     			
-    		} catch (FileNotFoundException e1) {
-				System.out.println("ERROR"+e1);			
-				e1.printStackTrace();
-				
-			}
-    	
+    			 try {
+						archivoConfiguracion.close();
+						System.out.println("CERRADO INPUT STREAM");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+    			
+       	
         System.out.printf(new Locale("es", "ESP"), "%tc Ejecutando tarea...%n", new java.util.Date());
          Divisa resultado = conexionGET("https://openexchangerates.org/api/latest.json?app_id=cf9ec84e98574bb7bd65d94434162332&base=USD","HTTPS");
         
@@ -58,17 +74,18 @@ public class Tarea implements Job{
          
         System.out.printf("vamos a ver "+resultado.getRates().EUR+"\n");
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-		DatabaseReference ref = database.getReference("server");
+		DatabaseReference ref = database.getReference("server/historico");
 		
        
-        DatabaseReference usersRef = ref.child("historico");
+        DatabaseReference usersRef = ref.child(getDate(resultado.getTimestamp()));
 
         Map<String, Divisa> divisa = new HashMap<String, Divisa>();
         divisa.put(getDate(resultado.getTimestamp()) , resultado);
 
-        usersRef.push().setValue(divisa);
+        usersRef.setValue(divisa);
             
         System.out.println("hemos llegado al final");
+       
         
        
          
@@ -85,7 +102,7 @@ public class Tarea implements Job{
 
 
 
-	private String getFileFirebase() throws FileNotFoundException {
+	private String getFileFirebase() {
     	String uno="Hipoteca Multidivisa-c09bbaf59b2f.json";
     	String dos="hola.json";
     	

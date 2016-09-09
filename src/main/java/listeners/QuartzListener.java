@@ -46,7 +46,7 @@ public class QuartzListener extends QuartzInitializerListener implements Servlet
 	            Scheduler scheduler = factory.getScheduler();
 	            JobDetail job = JobBuilder.newJob(Tarea.class).build();
 	            Trigger trigger = TriggerBuilder.newTrigger().withIdentity("simple").withSchedule(
-	                    CronScheduleBuilder.cronSchedule("0 0/1 * 1/1 * ? *")
+	                    CronScheduleBuilder.cronSchedule("0 0/30 * 1/1 * ? *")
 	            ).startNow().build();
 	            scheduler.scheduleJob(job, trigger);
 	            scheduler.start();
